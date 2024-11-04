@@ -1,19 +1,17 @@
 /*
 Relay List:
-0 = Dim Right head light
-1 = Dim Left head light
-2 = Bright Right head light
-3 = Bright Right head light
-4 = Back left turn signal
-5 = Back right turn signal
+0 = Bright head light
+1 = Dim head light
+2 = Back left turn signal
+3 = Back right turn signal
 */ 
-int relay[]{9, 10, 11, 12, 3, 4};
+int relay[]{10, 12, 3, 4};
 
 int LSwitch {7}; // set up all the switch pins
 int RSwitch {8};
 int hazSwitch {5};
-int lowHeadSwitch{6};
-int highHeadSwitch{2};
+int lowHeadSwitch{2};
+int highHeadSwitch{6};
 
 int tick{500};  // flicker rate of turn signals and hazards
 
@@ -55,10 +53,10 @@ void loop() {
   }
 
   if (digitalRead(LSwitch) == HIGH) {
-    turnSignal(relay[4], LSwitch); // Left turn signal
+    turnSignal(relay[2], LSwitch); // Left turn signal
   }
   
   if (digitalRead(RSwitch) == HIGH) {
-    turnSignal(relay[5], RSwitch); // Right turn signal
+    turnSignal(relay[3], RSwitch); // Right turn signal
   }
 }
