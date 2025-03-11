@@ -1,17 +1,20 @@
 /*
 Relay List:
-0 = Bright head light
-1 = Dim head light
-2 = Back left turn signal
-3 = Back right turn signal
+15 = Bright head light
+7 = Dim head light
+12 = Left turn signal
+14 = Right turn signal
+2 = Rear brake lights
 */ 
 int relay[]{10, 12, 3, 4};
 
-int LSwitch {7}; // set up all the switch pins
-int RSwitch {8};
-int hazSwitch {5};
+int LSwitch{7}; // set up all the switch pins
+int RSwitch{8};
+int hazSwitch{5};
 int lowHeadSwitch{2};
 int highHeadSwitch{6};
+int brakeSwitch{11};
+
 
 int tick{500};  // flicker rate of turn signals and hazards
 
@@ -20,6 +23,7 @@ int RState;
 int hazState;
 int lowHeadState;
 int highHeadState;
+int brakeState;
 
 void toggleRelayWithBreak(int,int,int); //Declares the toggleRelay function so that it may be used in all functions
 
@@ -29,6 +33,7 @@ void setup() {
   pinMode(hazSwitch, INPUT);
   pinMode(highHeadSwitch, INPUT);
   pinMode(lowHeadSwitch, INPUT);
+  pinMode(brakeSwitch, INPUT);
   
   for(int i = 0; i <= 5; i++){  
     pinMode(relay[i], OUTPUT);    // Sets up all relay pins are outputs
@@ -44,6 +49,7 @@ void loop() {
   LState = digitalRead(LSwitch);
   RState = digitalRead(RSwitch);
   hazState = digitalRead(hazSwitch);
+  brakeState = digitalRead(brakeSwitch);
 
   handleHeadlights(); //Handles the headlight based off of the headState variables
   
@@ -58,5 +64,11 @@ void loop() {
   
   if (digitalRead(RSwitch) == HIGH) {
     turnSignal(relay[3], RSwitch); // Right turn signal
+  }
+
+  if (digitalRead(brakeSwitch) == HIGH) {
+    digitalWrite(relay[2], LOW);
+  }
+  
   }
 }
