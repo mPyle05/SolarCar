@@ -70,5 +70,5 @@ void loop() {
     digitalWrite(relay[2], LOW);
   }
   
-  }
+  
 }
